@@ -50,7 +50,7 @@ Tabs.Info:AddButton({
 Tabs.Info:AddButton({
     Title = "Kênh Tiktok",
     Description = "Mpk Roblox",
-    Callback = function() setclipboard("https://www.youtube.com/@TBoyRoblox08") end
+    Callback = function() setclipboard("https://www.tiktok.com/@kaiiz_12") end
 })
 
 -- [[ 4. TAB CÀI ĐẶT (CHỨA FIX LAG - LUÔN HIỆN) ]] --
