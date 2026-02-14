@@ -1,0 +1,152 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local PlaceID = game.PlaceId
+
+-- [[ 1. CẤU HÌNH NÚT BẤM TRÒN (BẬT/TẮT MENU) ]] --
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+ScreenGui.Parent = game.CoreGui
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
+ImageButton.Position = UDim2.new(0.1, 0, 0.15, 0)
+ImageButton.Draggable = true
+ImageButton.Active = true
+ImageButton.Image = "http://www.roblox.com/asset/?id=83932975706860" -- Logo nút
+UICorner.CornerRadius = UDim.new(1, 0) -- Bo tròn
+UICorner.Parent = ImageButton
+
+-- [[ 2. KHỞI TẠO CỬA SỔ MENU ]] --
+local Window = Fluent:CreateWindow({
+    Title = "TBoy Roblox Tổng Hợp",
+    SubTitle = "Hub Đa Năng",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(500, 320), -- Chỉnh rộng hơn chút cho đẹp
+    Acrylic = true,
+    Theme = "Amethyst",
+    MinimizeKey = Enum.KeyCode.End
+})
+
+-- Xử lý khi bấm nút tròn
+ImageButton.MouseButton1Click:Connect(function()
+    Window:Minimize()
+end)
+
+local Tabs = {}
+
+-- [[ 3. TAB THÔNG TIN (LUÔN HIỆN) ]] --
+Tabs.Info = Window:AddTab({ Title = "Thông Tin", Icon = "info" })
+
+Tabs.Info:AddButton({
+    Title = "Discord Community",
+    Description = "Tham gia để nhận thông báo mới",
+    Callback = function()
+        setclipboard("https://discord.gg/DBFVrAzbB")
+        Fluent:Notify({Title = "Thành công", Content = "Đã copy link Discord!", Duration = 3})
+    end
+})
+
+Tabs.Info:AddButton({
+    Title = "Kênh Tiktok",
+    Description = "Mpk Roblox",
+    Callback = function() setclipboard("https://www.youtube.com/@TBoyRoblox08") end
+})
+
+-- [[ 4. TAB CÀI ĐẶT (CHỨA FIX LAG - LUÔN HIỆN) ]] --
+Tabs.Settings = Window:AddTab({ Title = "Cài Đặt & Fix Lag", Icon = "settings" })
+
+Tabs.Settings:AddButton({
+    Title = "Fix Lag (Siêu Mượt)",
+    Description = "Xóa texture, giảm đồ họa để tăng FPS",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TurboLite/Script/main/FixLag.lua"))()
+        Fluent:Notify({Title = "Fix Lag", Content = "Đã chạy script giảm lag!", Duration = 3})
+    end
+})
+
+-- [[ 5. PHÂN LOẠI GAME (CHỈ HIỆN SCRIPT CỦA GAME ĐANG CHƠI) ]] --
+
+-- >> BLOX FRUITS (Sea 1, 2, 3)
+if PlaceID == 2753915549 or PlaceID == 4442272183 or PlaceID == 7449423635 then
+    Tabs.BF = Window:AddTab({ Title = "Blox Fruits", Icon = "sword" })
+    
+    Tabs.BF:AddButton({
+        Title = "Redz Hub (Auto Farm)",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/newredz/BloxFruits/refs/heads/main/Source.luau"))()
+        end
+    })
+    
+    Tabs.BF:AddButton({
+        Title = "W-Azure Hub (PVP/Farm)",
+        Callback = function()
+            loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf5333c0ffad8c01bc09311234.lua"))()
+        end
+    })
+
+-- >> KING LEGACY (Sea 1, 2, Gate)
+elseif PlaceID == 3652625463 or PlaceID == 14455793425 or PlaceID == 16133333345 then
+    Tabs.KL = Window:AddTab({ Title = "King Legacy", Icon = "crown" })
+    
+    Tabs.KL:AddButton({
+        Title = "Banana Hub",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/BleuBlooker/BananaHub/main/KingLegacy.lua"))()
+        end
+    })
+    
+    Tabs.KL:AddButton({
+        Title = "Auto Farm (Xero Hub)",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/XeroHub/XeroHub/main/KingLegacy.lua"))()
+        end
+    })
+
+-- >> FISCH (CÂU CÁ)
+elseif PlaceID == 16732694052 then
+    Tabs.Fisch = Window:AddTab({ Title = "Fisch", Icon = "fish" })
+    
+    Tabs.Fisch:AddButton({
+        Title = "CFrame Hub",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/CFrame360/Fisch/main/Script.lua"))()
+        end
+    })
+
+-- >> PET SIMULATOR 99
+elseif PlaceID == 8737899170 or PlaceID == 16498369169 then
+    Tabs.Pet = Window:AddTab({ Title = "Pet Sim 99", Icon = "dog" })
+    
+    Tabs.Pet:AddButton({
+        Title = "Zap Hub",
+        Callback = function()
+            loadstring(game:HttpGet("https://zaphub.xyz/Exec.lua"))()
+        end
+    })
+
+-- >> GAME KHÁC (KHÔNG CÓ TRONG LIST)
+else
+    Tabs.Other = Window:AddTab({ Title = "Game Khác", Icon = "globe" })
+    Tabs.Other:AddParagraph({
+        Title = "Thông Báo",
+        Content = "Script chưa hỗ trợ Auto Farm cho game này.\nBạn vẫn có thể dùng Fix Lag ở tab Cài Đặt."
+    })
+    
+    Tabs.Other:AddButton({
+        Title = "Infinite Yield (Admin Lệnh)",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+        end
+    })
+end
+
+-- Chọn sẵn Tab đầu tiên
+Window:SelectTab(1)
+
+-- Thông báo chào mừng
+Fluent:Notify({
+    Title = "TBoy Hub",
+    Content = "Menu đã tải xong! Bấm nút tròn để ẩn/hiện.",
+    Duration = 5
+})
