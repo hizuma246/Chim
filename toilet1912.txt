@@ -1,0 +1,205 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+local PlaceID = game.PlaceId
+
+-- [[ CẤU HÌNH GIAO DIỆN NÚT BẤM ]] --
+
+local ScreenGui = Instance.new("ScreenGui")
+
+local ImageButton = Instance.new("ImageButton")
+
+local UICorner = Instance.new("UICorner")
+
+ScreenGui.Parent = game.CoreGui
+
+ImageButton.Parent = ScreenGui
+
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
+
+ImageButton.Position = UDim2.new(0.1, 0, 0.15, 0)
+
+ImageButton.Draggable = true
+
+ImageButton.Active = true
+
+ImageButton.Image = "http://www.roblox.com/asset/?id=83190276951914"
+
+UICorner.CornerRadius = UDim.new(1, 0)
+
+UICorner.Parent = ImageButton
+
+-- [[ KHỞI TẠO WINDOW ]] --
+
+local Window = Fluent:CreateWindow({
+
+    Title = "TBoy Roblox Tổng Hợp",
+
+    SubTitle = "Multi-Game Hub",
+
+    TabWidth = 160,
+
+    Size = UDim2.fromOffset(480, 320),
+
+    Acrylic = true,
+
+    Theme = "Amethyst",
+
+    MinimizeKey = Enum.KeyCode.End
+
+})
+
+-- Nút bấm bật/tắt
+
+ImageButton.MouseButton1Click:Connect(function()
+
+    Window:Minimize()
+
+end)
+
+local Tabs = {}
+
+-- [[ 1. TAB THÔNG TIN (LUÔN CÓ) ]] --
+
+Tabs.Info = Window:AddTab({ Title = "Thông Tin", Icon = "info" })
+
+Tabs.Info:AddButton({
+
+    Title = "Discord Community",
+
+    Description = "Tham gia để nhận update mới nhất",
+
+    Callback = function()
+
+        setclipboard("https://discord.gg/tboyroblox-community-1253927333920899153")
+
+        Fluent:Notify({ Title = "Hệ Thống", Content = "Đã copy link Discord!", Duration = 3 })
+
+    end
+
+})
+
+Tabs.Info:AddButton({
+
+    Title = "Kênh Youtube",
+
+    Callback = function() setclipboard("https://www.youtube.com/@TBoyRoblox08") end
+
+})
+
+-- [[ 2. PHÂN LOẠI GAME HOT ]] --
+
+-- CHƯƠNG TRÌNH CHO BLOX FRUITS
+
+if PlaceID == 2753915549 or PlaceID == 4442272183 or PlaceID == 7449423635 then
+
+    Window:Dialog({ Title = "Hệ Thống", Content = "Đã nhận diện: Blox Fruits" })
+
+    
+
+    Tabs.Game = Window:AddTab({ Title = "Blox Fruits", Icon = "sword" })
+
+    Tabs.Game:AddButton({
+
+        Title = "Redz Hub (Best)",
+
+        Callback = function()
+
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/newredz/BloxFruits/refs/heads/main/Source.luau"))()
+
+        end
+
+    })
+
+    Tabs.Game:AddButton({
+
+        Title = "W-Azure Hub",
+
+        Callback = function()
+
+            loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf5333c0ffad8c01bc09311234.lua"))()
+
+        end
+
+    })
+
+-- CHƯƠNG TRÌNH CHO FISCH (GAME CÂU CÁ ĐANG HOT)
+
+elseif PlaceID == 16732694052 then
+
+    Tabs.Game = Window:AddTab({ Title = "Fisch", Icon = "fish" })
+
+    Tabs.Game:AddButton({
+
+        Title = "CFrame Hub (Auto Fish/Farm)",
+
+        Callback = function()
+
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/CFrame360/Fisch/main/Script.lua"))()
+
+        end
+
+    })
+
+-- CHƯƠNG TRÌNH CHO PET SIMULATOR 99
+
+elseif PlaceID == 8737899170 or PlaceID == 16498369169 then
+
+    Tabs.Game = Window:AddTab({ Title = "Pet Sim 99", Icon = "dog" })
+
+    Tabs.Game:AddButton({
+
+        Title = "ZapHub",
+
+        Callback = function()
+
+            loadstring(game:HttpGet("https://zaphub.xyz/Exec.lua"))()
+
+        end
+
+    })
+
+-- CHƯƠNG TRÌNH CHO KING LEGACY
+
+elseif PlaceID == 3652625463 then
+
+    Tabs.Game = Window:AddTab({ Title = "King Legacy", Icon = "crown" })
+
+    Tabs.Game:AddButton({
+
+        Title = "Banana Hub",
+
+        Callback = function()
+
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/BleuBlooker/BananaHub/main/KingLegacy.lua"))()
+
+        end
+
+    })
+
+-- NẾU LÀ GAME CHƯA CÓ TRONG DANH SÁCH
+
+else
+
+    Tabs.Other = Window:AddTab({ Title = "Universal", Icon = "globe" })
+
+    Tabs.Other:AddLabel("Game này chưa có script riêng!")
+
+    Tabs.Other:AddButton({
+
+        Title = "Chạy Infinite Yield (Admin)",
+
+        Callback = function()
+
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+
+        end
+
+    })
+
+end
+
+-- Tự chọn tab đầu tiên
+
+Window:SelectTab(1)
